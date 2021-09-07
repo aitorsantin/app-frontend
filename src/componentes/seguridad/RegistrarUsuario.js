@@ -6,7 +6,7 @@ const RegistrarUsuario = () => {
     const classes = UseStyles();
     return (
         <Container className={classes.containermt}>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
                 <Grid item lg={6} md={8}>
                     <Card className={classes.card} align="center" >
                         <Avatar className={classes.avatar}>

@@ -8,7 +8,7 @@ const Login = () => {
     const classes = UseStyles();
     return (
         <Container className={classes.containermt}>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
                 <Grid item lg={5} md={6}>   
                     <Card align="center" className={classes.card} >
                         <Avatar className={classes.avatar} > 
