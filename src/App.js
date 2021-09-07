@@ -6,6 +6,7 @@ function App() {
     <div className="App">
       <h1>Bienvenidos al curso de ASP.NET Core y React Hooks</h1>
     </div>
+    
   );
 }
 
