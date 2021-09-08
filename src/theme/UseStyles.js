@@ -1,4 +1,6 @@
-import { makeStyles} from '@material-ui/core';
+import { createTheme ,makeStyles} from '@material-ui/core';
+
+const theme = createTheme();
 
 const UseStyles = makeStyles({
     containermt: {
@@ -27,6 +29,7 @@ const UseStyles = makeStyles({
         fontSize: "1.1rem",
         fontFamily : "Roboto",
         lineHeight: 1.5,
+        color: theme.palette.primary.main,
         textDecoration: "none"
     },
     appBar : {
@@ -34,7 +37,10 @@ const UseStyles = makeStyles({
         paddingBottom: 8
     },
     grow : {
-        flexGrow : 1,
+        flexGrow : 0,
+        [theme.breakpoints.up('md')] : {
+            flexGrow : 1,
+        }
     }, 
     linkAppBarLogo : {
         display : "inline-flex",
@@ -75,10 +81,16 @@ const UseStyles = makeStyles({
     }, 
     sectionDesktop : {
         display : "none",
+        [theme.breakpoints.up('md')] : {
+            display: "flex"
+        }
     },
     sectionMobile : {
         display: "flex",
         flexGrow : 1,
+        [theme.breakpoints.up('md')] : {
+            display: "none"
+        }
     },
     text_title : {
         fontWeight: 600,
