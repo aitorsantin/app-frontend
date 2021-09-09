@@ -8,6 +8,7 @@ import Login from './componentes/seguridad/Login';
 import Productos from './componentes/pantallas/Productos';
 import DetalleProducto from './componentes/pantallas/DetalleProducto';
 import carritoCompras from './componentes/pantallas/CarritoCompras';
+import ProcesoCompra from './componentes/pantallas/ProcesoCompra';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/" component={Productos} />
         <Route exact path="/detalleProducto/:id" component={DetalleProducto} />
         <Route exact path="/carrito" component={carritoCompras} />
+        <Route exact path="/procesoCompra" component={ProcesoCompra} />
       </Switch>
     </Router>
   </ThemeProvider>
