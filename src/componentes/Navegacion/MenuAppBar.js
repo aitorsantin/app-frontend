@@ -1,7 +1,8 @@
-import { Icon, Link, Typography, AppBar, Container, Toolbar, Button, IconButton, ListItem, ListItemIcon, Drawer
+import { Icon, Typography, AppBar, Container, Toolbar, Button, IconButton, ListItem, ListItemIcon, Drawer
 , ListItemText, List  } from '@material-ui/core';
 import React, { useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
+import { Link } from 'react-router-dom';
 
 const MenuAppBar = () => {
     const classes = UseStyles();
@@ -27,10 +28,10 @@ const MenuAppBar = () => {
                         </IconButton>
                     </div>
                     <Drawer open={open} onClose={closeToogle} > 
-                            <div className={classes.sectionDesktop} >
+                            <div className={classes.list} >
                                <List>
                                    <ListItem button className={classes.listItem} onClose={closeToogle}>
-                                       <Link color="inherit" underline="none" className={classes.linkAppBarMobile} >
+                                        <Link to="/login" color="inherit" underline="none" className={classes.linkAppBarMobile} >
                                             <ListItemIcon className={classes.listItemIcon}>
                                                 <Icon>person</Icon>
                                             </ListItemIcon>
@@ -41,7 +42,7 @@ const MenuAppBar = () => {
                             </div>
                         </Drawer>
                     <div className={classes.grow} >
-                        <Link color="inherit" underline="none" className={classes.linkAppBarLogo} >
+                        <Link  to="/" color="inherit" underline="none" className={classes.linkAppBarLogo} >
                             <Icon fontSize="large" className={classes.mr} >
                                 store
                             </Icon>
@@ -50,7 +51,7 @@ const MenuAppBar = () => {
                     </div>
                     <div>
                         <Button  color="inherit" className={classes.buttonIcon}>
-                            <Link color="inherit" className={classes.linkAppBarDesktop} underline="none" >
+                            <Link to="/login" color="inherit" className={classes.linkAppBarDesktop} underline="none" >
                                 <Icon className={classes.mr} >
                                     person
                                 </Icon>

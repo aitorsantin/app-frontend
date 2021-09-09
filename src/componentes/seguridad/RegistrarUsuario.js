@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, Grid, Card, Typography, Avatar, Icon, TextField, Button, Link    } from '@material-ui/core';
+import { Container, Grid, Card, Typography, Avatar, Icon, TextField, Button    } from '@material-ui/core';
 import UseStyles from '../../theme/UseStyles';
+import { Link } from 'react-router-dom';
 
 const RegistrarUsuario = () => {
     const classes = UseStyles();
