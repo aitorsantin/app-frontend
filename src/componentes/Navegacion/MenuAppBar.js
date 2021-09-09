@@ -3,6 +3,8 @@ import { Icon, Typography, AppBar, Container, Toolbar, Button, IconButton, ListI
 import React, { useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
+import MenuCliente from './desktop/MenuCliente';
+import MenuAdmin from './desktop/MenuAdmin';
 
 const MenuAppBar = () => {
     const classes = UseStyles();
@@ -17,51 +19,42 @@ const MenuAppBar = () => {
         setOpen(false);
     }
     return (
-        <AppBar position="static" className={classes.appBar}>
-            <Container>
-                <Toolbar>
-                    <div className={classes.sectionMovile} >
-                        <IconButton color="inherit" onClick={openToggle}>
-                            <Icon fontSize="large" >
-                                menu
-                            </Icon>
-                        </IconButton>
-                    </div>
-                    <Drawer open={open} onClose={closeToogle} > 
+        <div>
+            <AppBar position="static" className={classes.appBar}>
+                <Container>
+                    <Toolbar>
+                        <div className={classes.sectionMovile} >
+                            <IconButton color="inherit" onClick={openToggle} >
+                                <Icon fontSize="large" >
+                                    menu
+                                </Icon>
+                            </IconButton>
+                        </div>
+                        <Drawer open={open} onClose={closeToogle} > 
                             <div className={classes.list} >
-                               <List>
-                                   <ListItem button className={classes.listItem} onClose={closeToogle}>
-                                        <Link to="/login" color="inherit" underline="none" className={classes.linkAppBarMobile} >
-                                            <ListItemIcon className={classes.listItemIcon}>
-                                                <Icon>person</Icon>
-                                            </ListItemIcon>
-                                            <ListItemText>Login</ListItemText>
-                                       </Link>
-                                   </ListItem>
-                               </List>
+                                <List>
+                                    {/*<MenuMovilPublico clickHandler={closeToogle} />*/}
+                                    {/*<MenuMovil clickHandler={closeToogle} />*/}
+                                </List>
                             </div>
                         </Drawer>
-                    <div className={classes.grow} >
-                        <Link  to="/" color="inherit" underline="none" className={classes.linkAppBarLogo} >
-                            <Icon fontSize="large" className={classes.mr} >
-                                store
-                            </Icon>
-                            <Typography variant="h5" >VAXI SHOP</Typography>
-                        </Link>
-                    </div>
-                    <div>
-                        <Button  color="inherit" className={classes.buttonIcon}>
-                            <Link to="/login" color="inherit" className={classes.linkAppBarDesktop} underline="none" >
-                                <Icon className={classes.mr} >
-                                    person
-                                </Icon>
-                                LOGIN
+                        <div className={classes.grow} >
+                            <Link color="inherit" to="/" className={classes.linkAppBarLogo} underline="none" >
+                                <Icon className={classes.mr} fontSize="large">store</Icon>
+                                <Typography variant="h5" >VAXI SHOP</Typography>
                             </Link>
-                        </Button>
-                    </div>
-                </Toolbar>
-            </Container>
-        </AppBar>
+                        </div>
+                        <div className={classes.sectionDesktop}>
+                            {/*
+                            <MenuPublico />
+                            */}
+                            <MenuCliente />
+                            <MenuAdmin />
+                        </div>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </div>
     );
 };
 
