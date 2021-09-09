@@ -6,6 +6,7 @@ import theme from './theme/theme';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './componentes/seguridad/Login';
 import Productos from './componentes/pantallas/Productos';
+import DetalleProducto from './componentes/pantallas/DetalleProducto';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/registrar" component={RegistrarUsuario} />
         <Route exact path="/" component={Productos} />
+        <Route exact path="/detalleProducto/:id" component={DetalleProducto} />
       </Switch>
     </Router>
   </ThemeProvider>
