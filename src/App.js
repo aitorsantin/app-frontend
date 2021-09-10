@@ -12,6 +12,7 @@ import ProcesoCompra from './componentes/pantallas/ProcesoCompra';
 import OrdenCompra from './componentes/pantallas/OrdenCompra';
 import Perfil from './componentes/seguridad/Perfil';
 import Usuarios from './componentes/pantallas/admin/Usuario';
+import EditarUsuario from './componentes/pantallas/admin/EditarUsuario';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/ordenCompra/:id" component={OrdenCompra} />
         <Route exact path="/perfil" component={Perfil} />
         <Route exact path="/admin/usuarios" component={Usuarios} />
+        <Route exact path="/admin/usuario/:id" component={EditarUsuario} />
       </Switch>
     </Router>
   </ThemeProvider>
