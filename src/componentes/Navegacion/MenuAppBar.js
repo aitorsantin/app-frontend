@@ -5,6 +5,7 @@ import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
 import MenuCliente from './desktop/MenuCliente';
 import MenuAdmin from './desktop/MenuAdmin';
+import MenuMovil from './movil/MenuMovil';
 
 const MenuAppBar = () => {
     const classes = UseStyles();
@@ -34,7 +35,7 @@ const MenuAppBar = () => {
                             <div className={classes.list} >
                                 <List>
                                     {/*<MenuMovilPublico clickHandler={closeToogle} />*/}
-                                    {/*<MenuMovil clickHandler={closeToogle} />*/}
+                                    <MenuMovil clickHandler={closeToogle} />
                                 </List>
                             </div>
                         </Drawer>
