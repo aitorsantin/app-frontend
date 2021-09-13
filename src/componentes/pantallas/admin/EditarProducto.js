@@ -30,7 +30,7 @@ const EditarProducto = () => {
                         InputLabelProps={{
                             shrink: true
                         }} 
-                        value={9,99}
+                        value={9.99}
                         />
                         <TextField 
                         label="Marca" 
