@@ -49,7 +49,7 @@ const Productos = (props) => {
                     <Card>
                         <CardMedia
                         className={classes.media}
-                        image="https://tottope.vteximg.com.br/arquivos/ids/167188-1000-1000/PILIGRAM-H-1810-V07_A.png?v=636723781789170000"
+                        image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
                         title="mi producto"
                         >
                             <Avatar variant="square" className={classes.price}>
