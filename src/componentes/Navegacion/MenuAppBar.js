@@ -1,17 +1,19 @@
-import { Icon, Typography, AppBar, Container, Toolbar, Button, IconButton, ListItem, ListItemIcon, Drawer
-, ListItemText, List  } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Container, Icon, Typography, AppBar, Toolbar, IconButton, Drawer, List} from '@material-ui/core';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import MenuCliente from './desktop/MenuCliente';
 import MenuAdmin from './desktop/MenuAdmin';
 import MenuMovil from './movil/MenuMovil';
+import MenuMovilPublico from './movil/MenuMovilPublico';
+import MenuPublico from './desktop/MenuPublico';
+
 
 const MenuAppBar = () => {
+   
     const classes = UseStyles();
 
     const [open, setOpen] = useState(false);
-    
     const openToggle = () => {
         setOpen(true);
     };
@@ -19,6 +21,7 @@ const MenuAppBar = () => {
     const closeToogle = () => {
         setOpen(false);
     }
+
     return (
         <div>
             <AppBar position="static" className={classes.appBar}>
@@ -47,7 +50,7 @@ const MenuAppBar = () => {
                         </div>
                         <div className={classes.sectionDesktop}>
                             {/*
-                            <MenuPublico />
+                                <MenuPublico />
                             */}
                             <MenuCliente />
                             <MenuAdmin />
