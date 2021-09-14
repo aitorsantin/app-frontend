@@ -2,6 +2,7 @@ import { Avatar, Card, Container, Grid, Icon, Typography, TextField, Button } fr
 import React, { useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
+import { loginUsuario } from '../../actions/UsuarioAction';
 
 const clearUsuario = {
     email: '',
@@ -26,7 +27,7 @@ const Login = () => {
     const loginEventoUsuario = () => {
         
         
-        loginEventoUsuario(usuario).then(response => {
+        loginUsuario(usuario).then(response => {
             if(response.status === 200)
             {
                 window.localStorage.setItem('token', response.data.token);
