@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import useStyles from '../../theme/UseStyles';
 import { getProductos } from '../../actions/ProductoAction';
 import { productoArray } from '../data/dataPrueba';
-import { Pagination } from '@material-ui/lab/Pagination';
+import { Pagination } from '@material-ui/lab';
 
 
 const Productos = (props) => {
