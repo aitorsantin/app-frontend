@@ -3,9 +3,16 @@ import React, {useState, useEffect} from 'react';
 import useStyles from '../../theme/UseStyles';
 import { getProductos } from '../../actions/ProductoAction';
 import { productoArray } from '../data/dataPrueba';
+import { Pagination } from '@material-ui/lab/Pagination';
 
 
 const Productos = (props) => {
+
+    const [requestProductos, setRequestProductos] = useState({
+        pageIndex: 1,
+        pageSize: 2,
+        search: ''
+    });
 
     const [paginadorProductos, setPaginadorProductos] = useState({
         count : 0,
@@ -15,16 +22,25 @@ const Productos = (props) => {
         data: []
     });
 
+    /*El value es el numero de la pagina para el paginador*/
+    const handleChange = (event, value) =>{
+        setRequestProductos( (anterior) => ({
+            ...anterior,
+            pageIndex: value
+        }));
+
+    }
+
     useEffect(() => {
         const getListaProductos = async () => {
             
-        const response = await getProductos();
+        const response = await getProductos(requestProductos);
         console.log(response);
         setPaginadorProductos(response.data);
            
         }
         getListaProductos();
-    }, []);
+    }, [requestProductos]);
 
 
     const miArray = productoArray;
@@ -72,6 +88,7 @@ const Productos = (props) => {
                 </Grid>
                 ))}
             </Grid>
+            <Pagination count={paginadorProductos.pageCount} page={paginadorProductos.pageIndex} onChange={handleChange} />
         </Container>
     );
 };
