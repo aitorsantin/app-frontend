@@ -61,7 +61,7 @@ const Productos = (props) => {
             </Typography>
             <Grid container spacing={4}>
                 { paginadorProductos.data.map(data => (
-                <Grid item lg={3} md={4} sm={6} xs={12} key={data.key}>
+                <Grid item lg={3} md={4} sm={6} xs={12} key={data.id}>
                     <Card>
                         <CardMedia
                         className={classes.media}
