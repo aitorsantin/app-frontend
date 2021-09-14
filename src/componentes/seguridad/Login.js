@@ -1,10 +1,49 @@
 import { Avatar, Card, Container, Grid, Icon, Typography, TextField, Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
 
+const clearUsuario = {
+    email: '',
+    password: ''
+}
 
 const Login = () => {
+
+    const [usuario, setUsuario] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setUsuario(prev => ({
+            ...prev,
+            [name] : value
+        }))
+    }
+
+    const loginEventoUsuario = () => {
+        
+        
+        loginEventoUsuario(usuario).then(response => {
+            if(response.status === 200)
+            {
+                window.localStorage.setItem('token', response.data.token);
+                console.log('login realizado correctamente', response.data);
+            }else{
+                console.log('las credenciales no son correctas', response.data);
+            }
+        })
+        //const respuesta = accesoUsuario(usuario);
+        //if(!respuesta.status){
+           //console.log("Email y Password incorrectos");
+            //return;
+        //}
+        //setUsuario(clearUsuario);
+        //console.log("Bienvenido", respuesta.miUsuario.nombre); 
+    }
+
     const classes = UseStyles();
     return (
         <Container className={classes.containermt}>
@@ -17,7 +56,7 @@ const Login = () => {
                         <Typography variant="h5" color="primary">
                             Ingrese su Usuario
                         </Typography>
-                        <form className={classes.form}>
+                        <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
                         <Grid container spacing={2} >
                             <Grid item xs={12} className={classes.gridmb}>
                                 <TextField 
@@ -26,6 +65,8 @@ const Login = () => {
                                     fullWidth 
                                     type="email" 
                                     name="email" 
+                                    value={usuario.email}
+                                    onChange={handleChange}
                                     />
                             </Grid>
                             <Grid item xs={12} className={classes.gridmb}>
@@ -35,6 +76,8 @@ const Login = () => {
                                     fullWidth 
                                     type="password"
                                     name="password"
+                                    value={usuario.password}
+                                    onChange={handleChange}
                                      />
                             </Grid>
                             <Grid item xs={12} className={classes.gridmb}>
@@ -43,6 +86,7 @@ const Login = () => {
                                     fullWidth 
                                     color="primary"
                                     type="submit"
+                                    onClick={loginEventoUsuario}
                                      >
                                         Introducir
                                 </Button>

@@ -10,3 +10,14 @@ export const registrarUsuario = usuario => {
         })
     });
 }
+
+export const loginUsuario = usuario => {
+    return new Promise((resolve, eject) =>{
+        HttpCliente.post("api/usuario/login", usuario).then( response => {
+            resolve(response);
+        })
+        .catch((error) => {
+            resolve(error.response);
+        })
+    });
+}
