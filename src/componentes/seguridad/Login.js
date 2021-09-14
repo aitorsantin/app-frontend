@@ -9,7 +9,7 @@ const clearUsuario = {
     password: ''
 }
 
-const Login = () => {
+const Login = (props) => {
 
     const [usuario, setUsuario] = useState({
         email: '',
@@ -32,6 +32,7 @@ const Login = () => {
             {
                 window.localStorage.setItem('token', response.data.token);
                 console.log('login realizado correctamente', response.data);
+                props.history.push('/');
             }else{
                 console.log('las credenciales no son correctas', response.data);
             }
