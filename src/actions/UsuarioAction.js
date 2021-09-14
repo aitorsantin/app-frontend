@@ -6,7 +6,7 @@ export const registrarUsuario = usuario => {
             resolve(response);
         })
         .catch((error) => {
-            resolve(error);
+            resolve(error.response);
         })
     });
 }

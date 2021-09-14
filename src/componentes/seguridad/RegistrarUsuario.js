@@ -36,7 +36,7 @@ const RegistrarUsuario = () => {
         registrarUsuario(usuario).then(response => {
             console.log('el objeto response que envia el servidor', response);
             //Guardamos el valor del parametro token.
-            //window.localStorage.setItem('token', response.data.token);
+            window.localStorage.setItem('token', response.data.token);
         });
 
     }
