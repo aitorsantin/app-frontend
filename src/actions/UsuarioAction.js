@@ -21,3 +21,14 @@ export const loginUsuario = usuario => {
         })
     });
 }
+//Obtener el usuario actual
+export const getUsuario = () => {
+    return new Promise((resolve, eject) =>{
+        HttpCliente.get("api/usuario").then(response => {
+            resolve(response);
+        })
+        .catch((error) => {
+            resolve(error.response);
+        })
+    })
+}
