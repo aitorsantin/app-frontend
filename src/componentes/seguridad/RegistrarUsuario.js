@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Grid, Card, Typography, Avatar, Icon, TextField, Button    } from '@material-ui/core';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
+import { registrarUsuario } from '../../actions/UsuarioAction';
 
 const clearUsuario = {
     nombre: '',
@@ -30,13 +31,13 @@ const RegistrarUsuario = () => {
 
     const guardarUsuario = () => {
         //const insertarData = nuevoUsuario(usuario);
-        console.log("Mi usuario es", usuario);
-        setUsuario(clearUsuario);
-        /*registrarUsuario(usuario).then(response => {
+        //console.log("Mi usuario es", usuario);
+        //setUsuario(clearUsuario);
+        registrarUsuario(usuario).then(response => {
             console.log('el objeto response que envia el servidor', response);
             //Guardamos el valor del parametro token.
-            window.localStorage.setItem('token', response.data.token);
-        });*/
+            //window.localStorage.setItem('token', response.data.token);
+        });
 
     }
 
