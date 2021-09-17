@@ -3,6 +3,7 @@ import { Container, Grid, Card, Typography, Avatar, Icon, TextField, Button    }
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
 import { registrarUsuario } from '../../actions/UsuarioAction';
+import { useStateValue } from '../../contexto/store';
 
 const clearUsuario = {
     nombre: '',
@@ -13,6 +14,9 @@ const clearUsuario = {
 }
 
 const RegistrarUsuario = (props) => {
+
+    const [{sesionUsuario}, dispatch] = useStateValue();
+
     const [ usuario, setUsuario ] = useState({
         nombre: '',
         apellido: '',
@@ -30,7 +34,7 @@ const RegistrarUsuario = (props) => {
     };
 
     const guardarUsuario = () => {
-        registrarUsuario(usuario).then(response => {
+        registrarUsuario(usuario, dispatch).then(response => {
             console.log('el objeto response que envia el servidor', response);
             //Guardamos el valor del parametro token.
             window.localStorage.setItem('token', response.data.token);
