@@ -16,9 +16,16 @@ export const registrarUsuario = usuario => {
     });
 }
 
-export const loginUsuario = usuario => {
+export const loginUsuario = (usuario, dispatch) => {
     return new Promise((resolve, eject) =>{
         instancia.post("api/usuario/login", usuario).then( response => {
+            
+            dispatch({
+                type: "INICIAR_SESION",
+                sesion: response.data,
+                autenticado: true
+            });
+
             resolve(response);
         })
         .catch((error) => {

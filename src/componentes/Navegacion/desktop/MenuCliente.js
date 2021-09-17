@@ -1,9 +1,13 @@
 import { Avatar, Button, Icon, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useStateValue } from '../../../contexto/store';
 import useStyles from '../../../theme/UseStyles';
 
+
 const MenuCliente = () => {
+
+    const [{sesionUsuario}, dispatch] = useStateValue();
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -33,7 +37,9 @@ const MenuCliente = () => {
                         className={classes.avatarPerfilAppBar}
                         src="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
                         />
-                        John Peralta
+                        {sesionUsuario
+                        ? (sesionUsuario.autenticado ? sesionUsuario.usuario.nombre + ' ' + sesionUsuario.usuario.apellido : "Inicie Sesion")  
+                        : "Inicie Sesion"}
                         <Icon>keyboard_arrow_down</Icon>
                     </div>
                 </Button>
