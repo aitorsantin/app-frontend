@@ -2,7 +2,14 @@ import React from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Container, Typography, Grid, TableContainer, Table, TableBody, TableRow, TableCell, CardMedia, TextField, MenuItem, IconButton, Icon, Paper, Divider, Button   } from '@material-ui/core';
 import { productoArray } from '../data/dataPrueba';
+import { useStateValue } from '../../contexto/store';
+
 const carritoCompras = (props) => {
+
+    onst [{sesionCarritoCompra}, dispatch] = useStateValueValue();
+
+    console.log('sesionCarritoCompras', sesionCarritoCompra);
+
     const classes = UseStyles();
     const myArray = productoArray;
     const realizarCompra = () =>
