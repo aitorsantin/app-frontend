@@ -6,7 +6,7 @@ import { useStateValue } from '../../contexto/store';
 
 const carritoCompras = (props) => {
 
-    const [{sesionCarritoCompra}, dispatch] = useStateValueValue();
+    const [{sesionCarritoCompra}, dispatch] = useStateValue();
 
     console.log('sesionCarritoCompras', sesionCarritoCompra);
 
