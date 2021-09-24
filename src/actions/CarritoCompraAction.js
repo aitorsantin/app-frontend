@@ -5,19 +5,19 @@ const instancia = axios.create();
 instancia.CancelToken = axios.CancelToken;
 instancia.isCancel = axios.isCancel;    
 
-export const getCarritoCompra =(dispatch, id) => {
-    return new Promise((ressolve, eject) => {
+export const getCarritoCompra = (dispatch, id) => {
+    return new Promise( (ressolve, eject) => {
         instancia.get(`/api/carritocompra?id=${id}`)
-        .then(Response => {
+        .then(response => {
             dispatch({
                 type="CARRITO_SESION",
-                id= Response.data.id,
-                items = Response.data.items
+                id= response.data.id,
+                items = response.data.items
             });
-            ressolve(Response)
+            ressolve(response)
         })
         .catch(error =>{
-            ressolve(error.Response);
+            ressolve(error.response);
         });
     }); 
 }
