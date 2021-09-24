@@ -3,7 +3,7 @@ import { Container, Grid, Card, Typography, Avatar, Icon, TextField, Button    }
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
 import { registrarUsuario } from '../../actions/UsuarioAction';
-import { useStateValue } from '../../contexto/store';
+import { UseStateValue } from '../../contexto/store';
 
 const clearUsuario = {
     nombre: '',
@@ -15,7 +15,7 @@ const clearUsuario = {
 
 const RegistrarUsuario = (props) => {
 
-    const [{sesionUsuario}, dispatch] = useStateValue();
+    const [{sesionUsuario}, dispatch] = UseStateValue();
 
     const [ usuario, setUsuario ] = useState({
         nombre: '',

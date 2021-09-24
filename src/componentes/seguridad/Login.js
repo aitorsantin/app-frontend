@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Link } from 'react-router-dom';
 import { loginUsuario } from '../../actions/UsuarioAction';
-import {useStateValue} from '../../contexto/store';
+import {UseStateValue} from '../../contexto/store';
 
 const clearUsuario = {
     email: '',
@@ -11,7 +11,7 @@ const clearUsuario = {
 }
 
 const Login = (props) => {
-    const [{sesionUsuario}, dispatch] = useStateValue();
+    const [{sesionUsuario}, dispatch] = UseStateValue();
 
 
     const [usuario, setUsuario] = useState({

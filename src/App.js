@@ -18,13 +18,13 @@ import AgregarProducto from './componentes/pantallas/admin/AgregarProducto';
 import EditarProducto from './componentes/pantallas/admin/EditarProducto';
 import ListaPedidos from './componentes/pantallas/admin/ListaPedidos';  
 import { getUsuario } from './actions/UsuarioAction';
-import { useStateValue } from './contexto/store';
+import { UseStateValue } from './contexto/store';
 import {v4 as uuidv4} from 'uuid';
 import {getCarritoCompra} from './actions/CarritoCompraAction';
 
 function App() {
 
-  const [{sesionUsuario}, dispatch] = useStateValue();
+  const [{sesionUsuario}, dispatch] = UseStateValue();
 
   const [servidorRespuesta, setServidorRespuesta] = useState(false);
 

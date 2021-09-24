@@ -2,11 +2,11 @@ import React from 'react';
 import UseStyles from '../../theme/UseStyles';
 import { Container, Typography, Grid, TableContainer, Table, TableBody, TableRow, TableCell, CardMedia, TextField, MenuItem, IconButton, Icon, Paper, Divider, Button   } from '@material-ui/core';
 import { productoArray } from '../data/dataPrueba';
-import { useStateValue } from '../../contexto/store';
+import { UseStateValue } from '../../contexto/store';
 
 const carritoCompras = (props) => {
 
-    const [{sesionCarritoCompra}, dispatch] = useStateValue();
+    const [{sesionCarritoCompra}, dispatch] = UseStateValue();
 
     console.log('sesionCarritoCompras', sesionCarritoCompra);
 

@@ -1,13 +1,13 @@
 import { Avatar, Button, Icon, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useStateValue } from '../../../contexto/store';
+import { UseStateValue } from '../../../contexto/store';
 import useStyles from '../../../theme/UseStyles';
 
 
 const MenuCliente = () => {
 
-    const [{sesionUsuario}, dispatch] = useStateValue();
+    const [{sesionUsuario}, dispatch] = UseStateValue();
 
     const [anchorEl, setAnchorEl] = useState(null);
 
