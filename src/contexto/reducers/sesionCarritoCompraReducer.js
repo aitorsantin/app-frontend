@@ -1,16 +1,15 @@
 export const initialState = {
-    id:"",
-    items:[]
+    id: "",
+    items: []
 }
 
 const sesionCarritoCompraReducer = (state= initialState, action) => {
-    switch(action.type)
-    {
+    switch(action.type) {
         case "CARRITO_SESION":
             return {
                 ...state,
-                id = action.id,
-                items = action.items
+                id: action.id,
+                items: action.items
             };
         default: return state;
     }
