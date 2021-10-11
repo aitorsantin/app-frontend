@@ -10,12 +10,14 @@ const carritoCompras = (props) => {
 
     console.log('sesionCarritoCompras', sesionCarritoCompra);
 
-    const classes = UseStyles();
-    const myArray = productoArray;
+    const myArray = sesionCarritoCompra ? sesionCarritoCompra.items : []; /*productoArray;*/
+
     const realizarCompra = () =>
     {
         props.history.push("/procesoCompra");
     }
+
+    const classes = UseStyles();
 
     return (
         <Container className={classes.containermt} >
@@ -27,31 +29,29 @@ const carritoCompras = (props) => {
                     <TableContainer>
                         <Table>
                             <TableBody>
-                                {myArray.map(producto => (
-                                    <TableRow key={producto.key} >
+                                {myArray.map(item => (
+                                    <TableRow key={item.id} >
                                         <TableCell>
-                                            <CardMedia className={classes.imgProductoCC} image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" title="Imagen en Carrito" >
-
-                                            </CardMedia>
+                                            <CardMedia 
+                                            className={classes.imgProductoCC} 
+                                            image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" 
+                                            title="Imagen en Carrito" 
+                                            />
                                         </TableCell>
                                         <TableCell>
                                             <Typography className={classes.text_detalle} >
-                                                {producto.titulo}
+                                                {item.producto}
                                             </Typography>
                                         </TableCell>
                                         <TableCell>
                                             <Typography className={classes.text_detalle} >
-                                                {producto.precio}€
+                                                {item.precio}€
                                             </Typography>
                                         </TableCell>
                                         <TableCell>
-                                            <Select defaultValue={1} variant="outlined" size="small" >
-                                                <MenuItem value={1}>1</MenuItem>
-                                                <MenuItem value={2}>2</MenuItem>
-                                                <MenuItem value={3}>3</MenuItem>
-                                                <MenuItem value={4}>4</MenuItem>
-                                                <MenuItem value={5}>5</MenuItem>
-                                            </Select>
+                                            <Typography className={classes.text_detalle} >
+                                                {item.cantidad}
+                                            </Typography>
                                         </TableCell>
                                         <TableCell>
                                             <IconButton>
