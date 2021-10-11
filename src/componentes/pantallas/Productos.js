@@ -10,7 +10,6 @@ import {UseStateValue} from '../../contexto/store';
 
 const Productos = (props) => {
 
-    //Funcion generada para añadir elementos al carrito de la compra
     const [{sesionCarritoCompra}, dispatch] = UseStateValue();
 
     const [requestProductos, setRequestProductos] = useState({
