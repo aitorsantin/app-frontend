@@ -60,7 +60,7 @@ const DetalleProducto = (props) => {
                                     </TableCell>
                                     <TableCell>
                                         <Typography variant="subtitle2">
-                                        { productoSeleccionado.precio }
+                                        { productoSeleccionado.precio }€
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
