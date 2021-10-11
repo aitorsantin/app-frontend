@@ -50,9 +50,9 @@ const Productos = (props) => {
 
     const miArray = productoArray;
     const verProducto = async (item) => {
-        await addItem(sesionCarritoCompra, item , dispatch)
+        //await addItem(sesionCarritoCompra, item , dispatch)
         
-        //props.history.push("/detalleProducto/" + id);
+        props.history.push("/detalleProducto/" + item.id);
     }
     
     const classes = useStyles();
