@@ -1,6 +1,6 @@
 import React from 'react';
 import UseStyles from '../../theme/UseStyles';
-import { Container, Typography, Grid, TableContainer, Table, TableBody, TableRow, TableCell, CardMedia, TextField, MenuItem, IconButton, Icon, Paper, Divider, Button   } from '@material-ui/core';
+import { Container, Typography, Grid, TableContainer, Table, TableBody, TableRow, TableCell, CardMedia, TextField, MenuItem, IconButton, Icon, Paper, Divider, Button, Select   } from '@material-ui/core';
 import { productoArray } from '../data/dataPrueba';
 import { UseStateValue } from '../../contexto/store';
 
@@ -45,23 +45,13 @@ const carritoCompras = (props) => {
                                             </Typography>
                                         </TableCell>
                                         <TableCell>
-                                            <TextField select variant="outlined" size="small" value={1} >
-                                                <MenuItem value={1}>
-                                                    1
-                                                </MenuItem>
-                                                <MenuItem value={2}>
-                                                    2
-                                                </MenuItem>
-                                                <MenuItem value={3}>
-                                                    3
-                                                </MenuItem>
-                                                <MenuItem value={4}>
-                                                    4
-                                                </MenuItem>
-                                                <MenuItem value={5}>
-                                                    5
-                                                </MenuItem>
-                                            </TextField>
+                                            <Select defaultValue={1} variant="outlined" size="small" >
+                                                <MenuItem value={1}>1</MenuItem>
+                                                <MenuItem value={2}>2</MenuItem>
+                                                <MenuItem value={3}>3</MenuItem>
+                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={5}>5</MenuItem>
+                                            </Select>
                                         </TableCell>
                                         <TableCell>
                                             <IconButton>

@@ -1,8 +1,33 @@
-import { Button, CardMedia, Container, Grid, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import { Button, CardMedia, Container, Grid, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField, Typography, Select } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { getProducto } from '../../actions/ProductoAction';
 import UseStyles from '../../theme/UseStyles';
 
 const DetalleProducto = (props) => {
+
+    //Estructura del producto seleccionado desde la pagina inicial.
+    const [productoSeleccionado, setProductoSeleccionado] = useState({
+        id: 0,
+        nombre: "",
+        descripcion: "",
+        stock: 0,
+        marcaId: 0,
+        marcaNombre: "",
+        categoriaId: 0,
+        categoriaNombre: "",
+        precio: 0.0,
+        imagen: ""
+    });
+
+    useEffect(() => {
+        const id = props.match.params.id;
+        const getProductoAsync = async () =>{
+            const response =await getProducto(id);
+            setProductoSeleccionado(response.data);
+        }
+        getProductoAsync();
+    },[productoSeleccionado]);
+
     const classes = UseStyles();
 
     const agregarCarrito = () =>
@@ -12,13 +37,13 @@ const DetalleProducto = (props) => {
     return (
         <Container className={classes.containermt} >
             <Typography variant="h4" className={classes.text_title} >
-                Abrigo Vaxi
+                { productoSeleccionado.nombre }
             </Typography>
             <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12} >
                     <Paper variant="outlined" square className={classes.paperImg} >
                         <CardMedia image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" 
-                        title="Mi producto" 
+                        title={ productoSeleccionado.descripcion } 
                         className={classes.mediaDetalle} >
                         </CardMedia>
                     </Paper>
@@ -35,7 +60,7 @@ const DetalleProducto = (props) => {
                                     </TableCell>
                                     <TableCell>
                                         <Typography variant="subtitle2">
-                                            25.99
+                                        { productoSeleccionado.precio }
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
@@ -46,17 +71,9 @@ const DetalleProducto = (props) => {
                                         </Typography>
                                     </TableCell>
                                     <TableCell>
-                                        <TextField size="small" select variant="outlined" value={1} >
-                                            <MenuItem value={1} >
-                                                1
-                                            </MenuItem>
-                                            <MenuItem value={2} >
-                                                2
-                                            </MenuItem>
-                                            <MenuItem value={3} >
-                                                3
-                                            </MenuItem>
-                                        </TextField>
+                                        <Typography variant="subtitle2">
+                                        { productoSeleccionado.cantidad }
+                                        </Typography>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -74,16 +91,16 @@ const DetalleProducto = (props) => {
                     <Grid container spacing={2}>
                         <Grid item md={6} >
                             <Typography className={classes.text_detalle} >
-                                Precio: 25.99€
+                                Precio: { productoSeleccionado.precio }
                             </Typography>
                             <Typography className={classes.text_detalle} >
-                                Unidades Disponibles: 15
+                                Unidades Disponibles: { productoSeleccionado.stock }
                             </Typography>
                             <Typography className={classes.text_detalle} >
-                                Marca: Vaxi
+                                Marca: { productoSeleccionado.marcaNombre }
                             </Typography>
                             <Typography className={classes.text_detalle} >
-                                Temporada: Invierno
+                                Temporada: { productoSeleccionado.categoriaNombre }
                             </Typography>
                         </Grid>
                         <Grid item md={6} >
@@ -91,9 +108,7 @@ const DetalleProducto = (props) => {
                                 Descripcion:
                             </Typography>
                             <Typography className={classes.text_detalle} >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                { productoSeleccionado.descripcion }
                             </Typography>
                         </Grid>
                     </Grid>

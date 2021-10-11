@@ -4,9 +4,13 @@ import useStyles from '../../theme/UseStyles';
 import { getProductos } from '../../actions/ProductoAction';
 import { productoArray } from '../data/dataPrueba';
 import { Pagination } from '@material-ui/lab';
+import { addItem } from '../../actions/CarritoCompraAction';
+import {UseStateValue} from '../../contexto/store';
 
 
 const Productos = (props) => {
+
+    const [{sesionCarritoCompra}, dispatch] = UseStateValue();
 
     const [requestProductos, setRequestProductos] = useState({
         pageIndex: 1,
@@ -44,8 +48,10 @@ const Productos = (props) => {
 
 
     const miArray = productoArray;
-    const verProducto = (id) => {
-        props.history.push("/detalleProducto/" + id);
+    const verProducto = async (item) => {
+        //await addItem(sesionCarritoCompra, item , dispatch)
+        
+        props.history.push("/detalleProducto/" + item.id);
     }
     
     const classes = useStyles();
@@ -80,7 +86,7 @@ const Productos = (props) => {
                             variant="contained"
                             color="primary"
                             fullWidth
-                            onClick={() => verProducto(data.id)}>
+                            onClick={() => verProducto(data)}>
                                 MAS DETALLES
                             </Button>
                         </CardContent>
