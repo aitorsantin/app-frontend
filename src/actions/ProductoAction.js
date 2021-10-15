@@ -16,17 +16,17 @@ export const getProductos = (request) =>
     })
 };
 
-export const getProducto = id => {
+export const getProducto = id =>{
     return new Promise( (resolve, eject) => {
-        instancia.get(`/api/productos/${id}`).
+        instancia.get(`/api/Productos/ProductoSpec/${id}`).
         then(response => {
             resolve(response);
         })
         .catch(error => {
             resolve(error.response);
         });
-    })
-};
+    });
+}
 
 /*
     response 

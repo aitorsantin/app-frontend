@@ -32,7 +32,7 @@ const DetalleProducto = (props) => {
         }
         getProductoAsync();
     }, [productoSeleccionado]);
-
+    
     const classes = UseStyles();
 
     const agregarCarrito = async () =>
@@ -50,16 +50,17 @@ const DetalleProducto = (props) => {
         await addItem(sesionCarritoCompra, item, dispatch);
         props.history.push("/carrito");
     }
+
     return (
         <Container className={classes.containermt} >
             <Typography variant="h4" className={classes.text_title} >
-                { productoSeleccionado.nombre }
+            {    productoSeleccionado.nombre }
             </Typography>
             <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12} >
                     <Paper variant="outlined" square className={classes.paperImg} >
                         <CardMedia image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" 
-                        title={ productoSeleccionado.descripcion } 
+                        title={ productoSeleccionado.descripcion }
                         className={classes.mediaDetalle} >
                         </CardMedia>
                     </Paper>
@@ -76,7 +77,7 @@ const DetalleProducto = (props) => {
                                     </TableCell>
                                     <TableCell>
                                         <Typography variant="subtitle2">
-                                        { productoSeleccionado.precio }
+                                            { productoSeleccionado.precio }
                                         </Typography>
                                     </TableCell>
                                 </TableRow>
