@@ -16,6 +16,18 @@ export const getProductos = (request) =>
     })
 };
 
+export const getProducto = id => {
+    return new Promise( (resolve, eject) => {
+        instancia.get(`/api/productos/${id}`).
+        then(response => {
+            resolve(response);
+        })
+        .catch(error => {
+            resolve(error.response);
+        });
+    })
+};
+
 /*
     response 
         count : 5
