@@ -67,7 +67,13 @@ const AgregarProducto = () => {
                         />
                         <FormControl className={classes.FormControl}>
                             <InputLabel id="marca-select-label">Marca</InputLabel>
-                            <Select label="marca-select-label" id="marca-select" value={marca} onChange={handeMarcaChange} >
+                            <Select 
+                            label="marca-select-label" 
+                            id="marca-select" 
+                            value={marca} 
+                            onChange={handeMarcaChange} 
+                            className={classes.combobox}
+                            >
                                 <MenuItem value={1}>Nike</MenuItem>
                                 <MenuItem value={2}>Addidas</MenuItem>
                                 <MenuItem value={3}>Maldiva</MenuItem>
@@ -75,7 +81,7 @@ const AgregarProducto = () => {
                         </FormControl>
                         <FormControl className={classes.FormControl}>
                             <InputLabel id="categoria-select-label">Categoria</InputLabel>
-                            <Select label="categoria-select-label" id="categoria-select" value={categoria} onChange={handeCategoriaChange} >
+                            <Select label="categoria-select-label" id="categoria-select" value={categoria} onChange={handeCategoriaChange}  className={classes.combobox}>
                                 <MenuItem value={1}>Verano</MenuItem>
                                 <MenuItem value={2}>Invierno</MenuItem>
                                 <MenuItem value={3}>Primavera</MenuItem>

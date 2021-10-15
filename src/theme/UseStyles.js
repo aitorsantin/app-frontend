@@ -146,6 +146,11 @@ const UseStyles = makeStyles({
        margin: theme.spacing(1),
        minWidth: 120
     },
+    combobox: {
+        marginRight: 10,
+        marginTop:10,
+        padding:10
+    },
     gridLR : {
         paddingLeft: 30,
         paddingBottom: 20,
