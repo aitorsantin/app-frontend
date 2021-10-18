@@ -2,8 +2,22 @@ import { Container, Grid, Typography, TextField, Avatar, Button, Select, InputLa
 import React from 'react';
 import UseStyles from '../../../theme/UseStyles';
 import ImageUploader from 'react-images-upload';
+import { registrarProducto } from '../../../actions/ProductoAction';
+import {v4 as uuidv4} from 'uuid';
 
 const AgregarProducto = () => {
+    const [producto, setProducto] = React.useState({
+        id : 0,
+        nombre : '',
+        descripcion : '',
+        stock : 0,
+        marcaId: 0,
+        categoriaId : 0,
+        precio: 0.0,
+        imagen : '' ,
+        file : '',
+
+    });
 
     const [categoria, setCategoria] = React.useState("");
     const [marca, setMarca] = React.useState("");
@@ -18,7 +32,46 @@ const AgregarProducto = () => {
         setMarca(event.target.value);
     }
 
+    const guardarProducto = async () => {
+
+        producto.categoriaId = categoria;
+        producto.marcaId = marca;
+
+        //Llamamos a la funcion regisrarProducto de ProductoAction para pasarle el producto a registrar
+        const resultado = await registrarProducto(producto)
+        console.log('resultado de guardar producto', resultado);
+    }
+
+    //esta funcion actualiza la informacion del objeto producto cada vez que se realice un cambio en la caja de texto
+    // la variable (e) es la representacion de la caja de texto
+    const handleChange = (e) =>{
+        //para obtener el valor y el nombre de la caja de texto utilizamos la propiedad target
+        const {name, value} = e.target;
+        //prev es el objeto producto antes de realizar los cambios, lo que valos a hacer es actualizar sus propiedades
+        setProducto(prev => ({
+            //Mantenemos los valores anteriores
+            ...prev,
+            //Actualizamos los elementos con los valores de la caja de texto
+            [name]: value
+        }))
+    }
+
+    //la variable imagenes es un array de imagenes
+    const subirImagen = imagenes => {
+        //obtenemos la primera imagen del array de fotos
+        const foto = imagenes[0];
+        setProducto(prev => ({
+            //Mantenemos los valores anteriores
+            ...prev,
+            //Actualizamos la propiedad file con el valor de foto
+            [file]: foto
+        }))
+    }
+
     const classes = UseStyles();
+
+    //Esta funcion genera un id automaticamente
+    const keyImage = uuidv4();
     return (
         <Container className={classes.containermt} > 
             <Grid container justify="center"  >
@@ -34,7 +87,10 @@ const AgregarProducto = () => {
                         className={classes.gridmb}
                         InputLabelProps={{
                             shrink: true
-                        }} 
+                        }}
+                        name="nombre"
+                        value={producto.nombre}
+                        onChange={handleChange}
                         />
                          <TextField 
                         label="Precio" 
@@ -44,6 +100,9 @@ const AgregarProducto = () => {
                         InputLabelProps={{
                             shrink: true
                         }} 
+                        name="precio"
+                        value={producto.precio}
+                        onChange={handleChange}
                         />  
                          <TextField 
                         label="Stock" 
@@ -53,6 +112,9 @@ const AgregarProducto = () => {
                         InputLabelProps={{
                             shrink: true
                         }} 
+                        name="stock"
+                        value={producto.stock}
+                        onChange={handleChange}
                         />
                          <TextField 
                         label="Descripcion" 
@@ -64,6 +126,9 @@ const AgregarProducto = () => {
                         InputLabelProps={{
                             shrink: true
                         }} 
+                        name="descripcion"
+                        value={producto.descripcion}
+                        onChange={handleChange}
                         />
                         <FormControl className={classes.FormControl}>
                             <InputLabel id="marca-select-label">Marca</InputLabel>
@@ -91,9 +156,12 @@ const AgregarProducto = () => {
                             <Grid item sm={6} xs={12} >
                                 <ImageUploader
                                 withIcon={true}
+                                key={keyImage}
+                                singleImage={true}
                                 buttonText="Buscar Imagen"
                                 imgExtension={['.jpg', '.png', '.gif', '.jpeg']}
                                 maxFileSize={5242880}
+                                onChange={subirImagen}
                                  />
                             </Grid>
                             <Grid item sm={6} xs={12} >
@@ -103,7 +171,7 @@ const AgregarProducto = () => {
                                 />
                             </Grid>
                         </Grid>
-                        <Button variant="contained" color="primary" >
+                        <Button variant="contained" color="primary" onClick={guardarProducto} >
                             Agregar
                         </Button>
                     </form>
