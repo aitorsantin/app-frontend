@@ -71,7 +71,7 @@ const Productos = (props) => {
                     <Card>
                         <CardMedia
                         className={classes.media}
-                        image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
+                        image= {data.imagen ? data.imagen : "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"} 
                         title="mi producto"
                         >
                             <Avatar variant="square" className={classes.price}>

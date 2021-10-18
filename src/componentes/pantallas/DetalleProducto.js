@@ -59,7 +59,7 @@ const DetalleProducto = (props) => {
             <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12} >
                     <Paper variant="outlined" square className={classes.paperImg} >
-                        <CardMedia image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" 
+                        <CardMedia image={productoSeleccionado.imagen ? productoSeleccionado.imagen : "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"} 
                         title={ productoSeleccionado.descripcion }
                         className={classes.mediaDetalle} >
                         </CardMedia>

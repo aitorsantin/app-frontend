@@ -23,11 +23,14 @@ const firebaseConfig = {
           //Se va a subir el archivo a firebase a la carpeta images
         const uploadProcess = storage.ref(`images/${file.name}-${file.lastModified}`)
         .put(file);
-        uploadProcess.on("state_change"), (snapshot) => console.log("la imagen se esta subiendo", snapshot), reject, 
+        uploadProcess.on(
+          "state_change",
+          (snapshot) => console.log("la imagen se esta subiendo", snapshot), 
+          eject, 
         () => {
             //obtendremos una url de la imagen para publicarlo en react
             storage.ref('images').child(`${file.name}-${file.lastModified}`).getDownloadURL().then(resolve);
-        }
+        })
 
       });
   }

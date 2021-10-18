@@ -32,7 +32,7 @@ const carritoCompras = (props) => {
                                         <TableCell>
                                             <CardMedia 
                                             className={classes.imgProductoCC} 
-                                            image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" 
+                                            image={item.imagen ? item.imagen : "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"} 
                                             title="Imagen en Carrito" 
                                             />
                                         </TableCell>
