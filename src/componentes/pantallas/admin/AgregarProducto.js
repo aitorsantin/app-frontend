@@ -64,7 +64,7 @@ const AgregarProducto = () => {
             //Mantenemos los valores anteriores
             ...prev,
             //Actualizamos la propiedad file con el valor de foto
-            [file]: foto
+            file: foto
         }))
     }
 

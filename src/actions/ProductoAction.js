@@ -15,7 +15,7 @@ export const registrarProducto = async (producto) =>{
     producto.imagen = urlImage;
 
     return new Promise((resolve, eject) => {
-        HttpCliente.post("api/productos/producto", producto)
+        HttpCliente.post("api/productos/", producto)
         .then(response =>{
             resolve(response);
         })
