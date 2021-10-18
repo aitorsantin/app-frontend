@@ -1,41 +1,44 @@
 import { Button, Container, Grid, Icon, Table, TableContainer, TableHead, TableRow, TableCell, Typography, TableBody } from '@material-ui/core';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import UseStyles from '../../../theme/UseStyles';
 import { productoArray } from '../../data/dataPrueba';
-import { getProducto } from '../../../actions/ProductoAction';
+import { getProductos } from '../../../actions/ProductoAction';
 import  Pagination  from '@material-ui/lab/Pagination';
 
 const ListaProductos = (props) => {
     
     const [requestProductos, setRequestProductos] = useState({
-        pageIndex : 1,
-        pageSize : 4,
-        search : ''
+        pageIndex: 1,
+        pageSize: 4,
+        search: ''
     });
 
     const [paginadorProductos, setPaginadorProductos] = useState({
-        count: 0,
+        count : 0,
         pageIndex: 0,
         pageSize: 0,
         pageCount: 0,
-        data : []
+        data: []
     });
 
-    const handleChange = (event, value) => {
-        setRequestProductos((anterior) => ({ 
+    const handleChange = (event, value) =>{
+        setRequestProductos( (anterior) => ({
             ...anterior,
             pageIndex: value
         }));
+
     }
 
-    useEffect (() => {
+    useEffect(() => {
         const getListaProductos = async () => {
-            const response = await getProducto(requestProductos);
-            setPaginadorProductos(response.data);
+            
+        const response = await getProductos(requestProductos);
+        console.log(response);
+        setPaginadorProductos(response.data);
+           
         }
-
         getListaProductos();
-    }, [requestProductos] );
+    }, [requestProductos]);
 
        
     
@@ -78,7 +81,7 @@ const ListaProductos = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {paginadorProductos.data.map((producto) => (
+                        { paginadorProductos.data.map((producto) => (
                         <TableRow key={producto.id}>
                             <TableCell>{producto.id}</TableCell>
                             <TableCell>{producto.nombre}</TableCell>
