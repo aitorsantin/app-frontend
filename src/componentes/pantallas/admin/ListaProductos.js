@@ -1,11 +1,45 @@
 import { Button, Container, Grid, Icon, Table, TableContainer, TableHead, TableRow, TableCell, Typography, TableBody } from '@material-ui/core';
-import React from 'react';
+import React, {useState} from 'react';
 import UseStyles from '../../../theme/UseStyles';
 import { productoArray } from '../../data/dataPrueba';
+import { getProducto } from '../../../actions/ProductoAction';
+import  Pagination  from '@material-ui/lab/Pagination';
 
 const ListaProductos = (props) => {
+    
+    const [requestProductos, setRequestProductos] = useState({
+        pageIndex : 1,
+        pageSize : 4,
+        search : ''
+    });
+
+    const [paginadorProductos, setPaginadorProductos] = useState({
+        count: 0,
+        pageIndex: 0,
+        pageSize: 0,
+        pageCount: 0,
+        data : []
+    });
+
+    const handleChange = (event, value) => {
+        setRequestProductos((anterior) => ({ 
+            ...anterior,
+            pageIndex: value
+        }));
+    }
+
+    useEffect (() => {
+        const getListaProductos = async () => {
+            const response = await getProducto(requestProductos);
+            setPaginadorProductos(response.data);
+        }
+
+        getListaProductos();
+    }, [requestProductos] );
+
+       
+    
     const classes = UseStyles();
-    const productos = productoArray;
     const agregarProducto = () =>
     {
         props.history.push("/admin/agregarProducto");
@@ -39,18 +73,20 @@ const ListaProductos = (props) => {
                             <TableCell>Nombre</TableCell>
                             <TableCell>Precio</TableCell>
                             <TableCell>Marca</TableCell>
+                            <TableCell>Categoria</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {productos.map((producto) => (
-                        <TableRow key={producto.key}>
-                            <TableCell>{producto.key}</TableCell>
-                            <TableCell>{producto.titulo}</TableCell>
+                        {paginadorProductos.data.map((producto) => (
+                        <TableRow key={producto.id}>
+                            <TableCell>{producto.id}</TableCell>
+                            <TableCell>{producto.nombre}</TableCell>
                             <TableCell>{producto.precio}</TableCell>
-                            <TableCell>{producto.marca}</TableCell>
+                            <TableCell>{producto.marcaNombre}</TableCell>
+                            <TableCell>{producto.categoriaNombre}</TableCell>
                             <TableCell>
-                                <Button variant="contained" color="primary" onClick={() => editaProducto(producto.key)} >
+                                <Button variant="contained" color="primary" onClick={() => editaProducto(producto.id)} >
                                     <Icon>
                                         edit
                                     </Icon>
@@ -66,6 +102,9 @@ const ListaProductos = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Pagination count={paginadorProductos.pageCount} oage={paginadorProductos.pageIndex} onChange={handleChange} >
+
+            </Pagination>
         </Container>
     );
 };
