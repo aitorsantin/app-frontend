@@ -8,6 +8,8 @@ import {v4 as uuidv4} from 'uuid';
 //Props permite acceder a los parametros de la url
 const EditarProducto = (props) => {
 
+    const imagenDefault = "https://firebasestorage.googleapis.com/v0/b/ecomerce-d1495.appspot.com/o/images%2Fnodisponible.jpg-1634641609701?alt=media&token=239c22d5-7225-4ffb-ae11-873f8de1afc6";
+
     const [producto, setProducto] = useState({
         id : 0,
         nombre : '',
@@ -17,7 +19,8 @@ const EditarProducto = (props) => {
         categoriaId : 0,
         precio : 0,
         imagen: '',
-        file : ""
+        file : "",
+        imagenTemporal : null
     });
 
     const guardarProducto = async () =>{
@@ -56,10 +59,21 @@ const EditarProducto = (props) => {
 
     //Evento para subir imagenes
     const subirImagen = (imagenes) => {
-        const foto = imagenes[0];
+        let foto = imagenes[0];
+        
+        //Vamos a cargar la foto temporal que queremos mostrar al actualizar la imagen
+        let fotoUrl = "";
+        try{
+            fotoUrl = URL.createObjectURL(foto);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
         setProducto( (prev) =>({
             ...prev,
-            file : foto
+            file : foto,
+            imagenTemporal : fotoUrl
         }))
     }
 
@@ -182,7 +196,13 @@ const EditarProducto = (props) => {
                                 <Avatar
                                 variant="square"
                                 className={classes.avatarProducto} 
-                                src={producto.imagen ? producto.imagen : "https://firebasestorage.googleapis.com/v0/b/ecomerce-d1495.appspot.com/o/images%2Fnodisponible.jpg-1634641609701?alt=media&token=239c22d5-7225-4ffb-ae11-873f8de1afc6"}
+                                src={
+                                    producto.imagenTemporal
+                                    ?
+                                    producto.imagenTemporal
+                                    :
+                                    (producto.imagen ? producto.imagen : imagenDefault)
+                                }
                                 />
                             </Grid>
                         </Grid>

@@ -5,7 +5,10 @@ import ImageUploader from 'react-images-upload';
 import { registrarProducto } from '../../../actions/ProductoAction';
 import {v4 as uuidv4} from 'uuid';
 
-const AgregarProducto = () => {
+const AgregarProducto = (props) => {
+    
+    const imagenDefault = "https://firebasestorage.googleapis.com/v0/b/ecomerce-d1495.appspot.com/o/images%2Fnodisponible.jpg-1634641609701?alt=media&token=239c22d5-7225-4ffb-ae11-873f8de1afc6";
+    
     const [producto, setProducto] = React.useState({
         id : 0,
         nombre : '',
@@ -16,6 +19,7 @@ const AgregarProducto = () => {
         precio: 0.0,
         imagen : '' ,
         file : '',
+        imagenTemporal : null
 
     });
 
@@ -40,6 +44,7 @@ const AgregarProducto = () => {
         //Llamamos a la funcion regisrarProducto de ProductoAction para pasarle el producto a registrar
         const resultado = await registrarProducto(producto)
         console.log('resultado de guardar producto', resultado);
+        props.history.push("/admin/listaProductos");
     }
 
     //esta funcion actualiza la informacion del objeto producto cada vez que se realice un cambio en la caja de texto
@@ -60,11 +65,21 @@ const AgregarProducto = () => {
     const subirImagen = imagenes => {
         //obtenemos la primera imagen del array de fotos
         const foto = imagenes[0];
+        //Vamos a cargar la foto temporal que queremos mostrar al actualizar la imagen
+        let fotoUrl = "";
+        try{
+            fotoUrl = URL.createObjectURL(foto);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
         setProducto(prev => ({
             //Mantenemos los valores anteriores
             ...prev,
             //Actualizamos la propiedad file con el valor de foto
-            file: foto
+            file: foto,
+            imagenTemporal : fotoUrl
         }))
     }
 
@@ -166,8 +181,15 @@ const AgregarProducto = () => {
                             </Grid>
                             <Grid item sm={6} xs={12} >
                                 <Avatar
-                                variant="square"
-                                className={classes.avatarProducto} 
+                                    variant="square"
+                                    className={classes.avatarProducto} 
+                                    src={
+                                        producto.imagenTemporal
+                                        ?
+                                        producto.imagenTemporal
+                                        :
+                                        (producto.imagen ? producto.imagen : imagenDefault)
+                                    }
                                 />
                             </Grid>
                         </Grid>
