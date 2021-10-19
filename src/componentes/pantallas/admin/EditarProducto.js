@@ -29,7 +29,8 @@ const EditarProducto = (props) => {
         props.history.push('/admin/listaProductos');
     }
 
-    const keyImage = uuidb4();
+    //Esta funcion genera un id automaticamente
+    const keyImage = uuidv4();
 
     const [marca, setMarca] = useState("");
     const [categoria, setCategoria] = useState("");
@@ -71,6 +72,7 @@ const EditarProducto = (props) => {
             const response = await getProducto(id);
             //llenamos el producto, la marca y la categoria
             setProducto(response.data);
+            console.log(response.data);
             setCategoria(response.data.categoriaId);
             setMarca(response.data.marcaId);
         }
@@ -180,7 +182,7 @@ const EditarProducto = (props) => {
                                 <Avatar
                                 variant="square"
                                 className={classes.avatarProducto} 
-                                src={producto.imagen ? producto.imagen : "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"}
+                                src={producto.imagen ? producto.imagen : "https://firebasestorage.googleapis.com/v0/b/ecomerce-d1495.appspot.com/o/images%2Fnodisponible.jpg-1634641609701?alt=media&token=239c22d5-7225-4ffb-ae11-873f8de1afc6"}
                                 />
                             </Grid>
                         </Grid>
