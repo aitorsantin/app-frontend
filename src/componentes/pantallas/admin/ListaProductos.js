@@ -9,7 +9,7 @@ const ListaProductos = (props) => {
     
     const [requestProductos, setRequestProductos] = useState({
         pageIndex: 1,
-        pageSize: 4,
+        pageSize: 20,
         search: ''
     });
 

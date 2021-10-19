@@ -1,8 +1,9 @@
-import { Container, Grid, Typography, TextField, Avatar, Button } from '@material-ui/core';
+import { Container, Grid, Typography, TextField, Avatar, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import UseStyles from '../../../theme/UseStyles';
 import ImageUploader from 'react-images-upload';
 import { getProducto, actualizarProducto } from '../../../actions/ProductoAction';
+import {v4 as uuidv4} from 'uuid';
 
 //Props permite acceder a los parametros de la url
 const EditarProducto = (props) => {
@@ -18,6 +19,17 @@ const EditarProducto = (props) => {
         imagen: '',
         file : ""
     });
+
+    const guardarProducto = async () =>{
+        producto.categoriaId = categoria;
+        producto.marcaId = marca;
+        const id = props.match.params.id;
+        var resultado = await actualizarProducto(id, producto);
+        console.log(resultado);
+        props.history.push('/admin/listaProductos');
+    }
+
+    const keyImage = uuidb4();
 
     const [marca, setMarca] = useState("");
     const [categoria, setCategoria] = useState("");
@@ -126,24 +138,53 @@ const EditarProducto = (props) => {
                         name = "descripcion"
                         onChange={handleChange}
                         />
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="marca-select-label">
+                                Marca
+                            </InputLabel>
+                            <Select 
+                            labelId="marca-select-label"
+                            id="marca-select"
+                            value={marca}
+                            onChange={handleMarcaChange}>
+                                <MenuItem value={1}>Nike</MenuItem>
+                                <MenuItem value={2}>Addidas</MenuItem>
+                                <MenuItem value={3}>Maldiva</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl className={classes.formControl}>
+                            <InputLabel id="categoria-select-label">Categoria</InputLabel>
+                            <Select 
+                            labelId="categoria-select-label"
+                            id="categoria-select"
+                            value={categoria}
+                            onChange={handleCategoriaChange}>
+                                <MenuItem value={1}>Verano</MenuItem>
+                                <MenuItem value={2}>Invierno</MenuItem>
+                                <MenuItem value={3}>Primavera</MenuItem>
+                            </Select>
+                        </FormControl>
                         <Grid container spacing={2} >
                             <Grid item sm={6} xs={12} >
                                 <ImageUploader
+                                singleImage={true}
+                                key={keyImage}
                                 withIcon={true}
                                 buttonText="Buscar Imagen"
                                 imgExtension={['.jpg', '.png', '.gif', '.jpeg']}
                                 maxFileSize={5242880}
+                                onChange={subirImagen}
                                 />
                             </Grid>
                             <Grid item sm={6} xs={12} >
                                 <Avatar
                                 variant="square"
                                 className={classes.avatarProducto} 
-                                src="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
+                                src={producto.imagen ? producto.imagen : "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"}
                                 />
                             </Grid>
                         </Grid>
-                        <Button variant="contained" color="primary" >
+                        <Button variant="contained" color="primary" onClick={guardarProducto} >
                             Actualizar
                         </Button>
                     </form>
