@@ -6,13 +6,38 @@ const instancia = axios.create();
 instancia.CancelToken = axios.CancelToken;
 instancia.isCancel = axios.isCancel;  
 
+//actualizar producto
+export const actualizarProducto = async (id, producto) => {
+    //evaluamos si se quiere actualizar la imagen del producto
+    if(producto.file)
+    {
+        //si la imagen ya existe la actualizamos
+        const urlImage = await uploadImage(producto.file);
+        producto.imagen = urlImage;
+    }
+
+    return new Promise((resolve, eject) => {
+        HttpCliente.put(`api/productos/${id}`, producto)
+        .then(response =>{
+            resolve(response);
+        })
+        .catch(error => {
+            resolve(error.response);
+        });
+    })
+};
+
 /*Insertar productos*/ 
 export const registrarProducto = async (producto) =>{
 
     //Tenemos que pasarle al objeto producto que va a almacenarse en la base de datos la url de la imagen
     //Esta nos la va a proporcionar firebase
-    const urlImage = await uploadImage(producto.file);
-    producto.imagen = urlImage;
+    if(producto.file)
+    {
+        //si la imagen ya existe la actualizamos
+        const urlImage = await uploadImage(producto.file);
+        producto.imagen = urlImage;
+    }
 
     return new Promise((resolve, eject) => {
         HttpCliente.post("api/productos/", producto)
