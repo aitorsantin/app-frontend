@@ -19,7 +19,7 @@ const EditarProducto = (props) => {
         file : ""
     });
 
-    const [marca, setNarca] = useState("");
+    const [marca, setMarca] = useState("");
     const [categoria, setCategoria] = useState("");
 
     //Estas funciones se lanzan cada vez que se selecciona un valor en el combobox
@@ -53,7 +53,7 @@ const EditarProducto = (props) => {
     //Cuando se cargue la pagina podremos obtener los datos de la url
     useEffect( () =>{
         //Una vez cargada la pagina obtenemos el id de la url
-        const id = props.march.params.id;
+        const id = props.match.params.id;
         const getProductoAsync = async () =>{
             //llamamos a la funcion getProducto para que el servidor nos devuelva el producto
             const response = await getProducto(id);
