@@ -1,3 +1,4 @@
+//reducer para crear popap de errores
 const initialState = {
     open: false,
     mensaje: ""
