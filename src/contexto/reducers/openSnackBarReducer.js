@@ -1,15 +1,12 @@
-//Este reducer se utiliza para mostrar un toast con los mensajes de error
 const initialState = {
     open: false,
     mensaje: ""
-    
 }
 
-const openSnackBarReducer =(state = initialState, action) => {
-    switch(action.type)
-    {
-        case "OPEN SNACKBAR":
-            return{
+const openSnackbarReducer = (state = initialState, action) => {
+    switch(action.type){
+        case "OPEN_SNACKBAR" : 
+            return {
                 ...state,
                 open: action.openMensaje.open,
                 mensaje: action.openMensaje.mensaje
@@ -19,4 +16,4 @@ const openSnackBarReducer =(state = initialState, action) => {
     }
 }
 
-export default openSnackBarReducer;
+export default openSnackbarReducer;

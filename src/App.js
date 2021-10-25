@@ -24,7 +24,7 @@ import {getCarritoCompra} from './actions/CarritoCompraAction';
 
 function App() {
 
-  const [{sesionUsuario, openSnackBar}, dispatch] = UseStateValue();
+  const [{ sesionUsuario, openSnackbar }, dispatch] = UseStateValue();
 
   const [servidorRespuesta, setServidorRespuesta] = useState(false);
 
@@ -51,26 +51,25 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Snackbar
-        anchorOrigin = {{vertical: "boton", horizontal: "center"}}  
-        open = {openSnackBar ? openSnackBar.open : false}
+        anchorOrigin= {{vertical: "bottom", horizontal:"center"}}
+        open = {openSnackbar ? openSnackbar.open : false}
         autoHideDuration = {3000}
         ContentProps={{"aria-describedby": "message-id"}}
         message={
           <span id="message-id">
-            {openSnackBar ? openSnackBar.messaje : ""}
+              {openSnackbar ? openSnackbar.mensaje : ""}
           </span>
         }
-        onClose = {() => 
-          dispatch({
-            type: "OPEN_SNACKBAR",
-            openMesaje: {
-              open: false,
-              mensaje: ""
-            }
-          })
+        onClose = { () => 
+              dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                  open: false,
+                  mensaje: ""
+                }
+              })
         }
       >
-
       </Snackbar>
     <Router>
       <MenuAppBar />
