@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core'
+import { Snackbar, ThemeProvider } from '@material-ui/core'
 import React, { useEffect, useState } from "react";
 import MenuAppBar from './componentes/Navegacion/MenuAppBar';
 import RegistrarUsuario from './componentes/seguridad/RegistrarUsuario';
@@ -24,7 +24,7 @@ import {getCarritoCompra} from './actions/CarritoCompraAction';
 
 function App() {
 
-  const [{sesionUsuario}, dispatch] = UseStateValue();
+  const [{sesionUsuario, openSnackBar}, dispatch] = UseStateValue();
 
   const [servidorRespuesta, setServidorRespuesta] = useState(false);
 
@@ -50,6 +50,28 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar
+        anchorOrigin = {{vertical: "boton", horizontal: "center"}}  
+        open = {openSnackBar ? openSnackBar.open : false}
+        autoHideDuration = {3000}
+        ContentProps={{"aria-describedby": "message-id"}}
+        message={
+          <span id="message-id">
+            {openSnackBar ? openSnackBar.messaje : ""}
+          </span>
+        }
+        onClose = {() => 
+          dispatch({
+            type: "OPEN_SNACKBAR",
+            openMesaje: {
+              open: false,
+              mensaje: ""
+            }
+          })
+        }
+      >
+
+      </Snackbar>
     <Router>
       <MenuAppBar />
       <Switch>

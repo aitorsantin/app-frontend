@@ -37,7 +37,13 @@ const Login = (props) => {
                 console.log('login realizado correctamente', response.data);
                 props.history.push('/');
             }else{
-                console.log('las credenciales no son correctas', response.data);
+               dispatch({
+                   type: "OPEN_SNACKBAR",
+                   openMensaje:{
+                       oepn: true,
+                       messaje: "El usuario o el password son incorrectos",
+                   },
+               });
             }
         })
         //const respuesta = accesoUsuario(usuario);
