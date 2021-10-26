@@ -1,4 +1,4 @@
-import openSnackbarReducer from "./openSnackbarReducer"
+import openSnackbarReducer from "./openSnackBarReducer"
 import sesionCarritoCompraReducer from "./sesionCarritoCompraReducer"
 import sesionUsuarioReducer from "./sesionUsuarioReducer"
 

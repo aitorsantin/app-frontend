@@ -1,4 +1,4 @@
-import { Avatar, Button, Icon, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, ListItem } from '@material-ui/core';
+import { Avatar, Button, Icon, ListItem, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { UseStateValue } from '../../../contexto/store';
@@ -19,13 +19,13 @@ const MenuCliente = (props) => {
         setAnchorEl(null);
     }
 
-    const salirSesion = (e) =>{
+    const salirSesion = (e) => {
         e.preventDefault();
         localStorage.removeItem("token");
         dispatch({
-            type = "SALIR_SESION",
-            nuevoUsuario = null,
-            autenticado = false
+            type: "SALIR_SESION",
+            nuevoUsuario: null,
+            autenticado: false
         });
 
         props.history.push("/login");

@@ -19,13 +19,13 @@ const MenuMovil = (props) => {
         setOpenAdmin((orevOpen) => !orevOpen );
     }
 
-    const salirSesion = (e) =>{
+    const salirSesion = (e) => {
         e.preventDefault();
         localStorage.removeItem("token");
         dispatch({
-            type = "SALIR_SESION",
-            nuevoUsuario = null,
-            autenticado = false
+            type: "SALIR_SESION",
+            nuevoUsuario: null,
+            autenticado: false
         });
 
         props.history.push("/login");
@@ -40,7 +40,9 @@ const MenuMovil = (props) => {
                     src="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
                     />
                     <ListItemText>
-                        John Peralta
+                    {sesionUsuario
+                        ? (sesionUsuario.autenticado ? sesionUsuario.usuario.nombre + ' ' + sesionUsuario.usuario.apellido : "Inicie Sesion")  
+                        : "Inicie Sesion"}
                     </ListItemText>
                     <Icon>
                         keyboard_arrow_down
