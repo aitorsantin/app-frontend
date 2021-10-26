@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import UseStyles from '../../../theme/UseStyles';
 import { Avatar, Collapse, Divider, Icon, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { UseStateValue } from '../../../contexto/store';
 
 const MenuMovil = (props) => {
+    
+    const [{sesionUsuario}, dispatch] = UseStateValue();
     const classes = UseStyles();
     const [openCliente, setOpenCliente] = useState(false);
     const handleClickCliente = () =>
@@ -14,6 +17,18 @@ const MenuMovil = (props) => {
     const handleClickAdmin = () =>
     {
         setOpenAdmin((orevOpen) => !orevOpen );
+    }
+
+    const salirSesion = (e) =>{
+        e.preventDefault();
+        localStorage.removeItem("token");
+        dispatch({
+            type = "SALIR_SESION",
+            nuevoUsuario = null,
+            autenticado = false
+        });
+
+        props.history.push("/login");
     }
     return (
         <>
@@ -47,7 +62,9 @@ const MenuMovil = (props) => {
                             <ListItemIcon className={classes.listItemIcon}>
                                 <Icon>exit_to_app</Icon>
                             </ListItemIcon>
-                            <ListItemText>Cerrar Sesion</ListItemText>
+                            <ListItem button onClick={salirSesion}>
+                                <ListItemText>Cerrar Sesion</ListItemText>
+                            </ListItem>
                         </Link>
                     </ListItem>
                     <Divider />
@@ -107,4 +124,4 @@ const MenuMovil = (props) => {
     );
 };
 
-export default MenuMovil;
+export default withRouter(MenuMovil);

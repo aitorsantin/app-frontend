@@ -1,11 +1,11 @@
-import { Avatar, Button, Icon, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
+import { Avatar, Button, Icon, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, ListItem } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { UseStateValue } from '../../../contexto/store';
 import useStyles from '../../../theme/UseStyles';
 
 
-const MenuCliente = () => {
+const MenuCliente = (props) => {
 
     const [{sesionUsuario}, dispatch] = UseStateValue();
 
@@ -17,6 +17,18 @@ const MenuCliente = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    }
+
+    const salirSesion = (e) =>{
+        e.preventDefault();
+        localStorage.removeItem("token");
+        dispatch({
+            type = "SALIR_SESION",
+            nuevoUsuario = null,
+            autenticado = false
+        });
+
+        props.history.push("/login");
     }
 
     const classes = useStyles();
@@ -71,7 +83,10 @@ const MenuCliente = () => {
                             <ListItemIcon className={classes.listItemIcon}>
                                 <Icon>exit_to_app</Icon>
                             </ListItemIcon>
-                            <ListItemText>Cerrar Sesion</ListItemText>
+                            <ListItem button onClick={salirSesion}>
+                                <ListItemText>Cerrar Sesion</ListItemText>
+                            </ListItem>
+                            
                         </Link>
                     </MenuItem>
                 </Menu>
@@ -80,4 +95,4 @@ const MenuCliente = () => {
     );
 };
 
-export default MenuCliente;
+export default withRouter(MenuCliente);
