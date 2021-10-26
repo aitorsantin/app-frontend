@@ -1,9 +1,39 @@
 import { Avatar, Container, Divider, Grid, Icon, Typography, TextField, Button, TableContainer, Table, TableCell, TableHead, TableRow, TableBody } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import ImageUploader from 'react-images-upload';
+import {UseStateValue} from "../../contexto/store";
 
 const Perfil = (props) => {
+
+    const [{sesionUsuario}, dispatch] = UseStateValue();
+
+    const [usuario, setUsuario] = useState({
+        id: "",
+        nombre: "",
+        apellido: "",
+        imagen: "",
+        password: "",
+        file: "",
+        imagenTemporal: "",
+    });
+
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setUsuario(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    /*Si existe una sesion de usuario, carga dentro de las variables de usuario con lo que nos devuelve la API*/ 
+    useEffect(() => {
+        if(sesionUsuario)
+        {
+            setUsuario(sesionUsuario.usuario);
+        }
+    }, [sesionUsuario])
+
     const classes = UseStyles();
     const verDetalles = () =>
     {
@@ -31,11 +61,41 @@ const Perfil = (props) => {
                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
                         maxFileSize={5242880}
                         />
-                        <TextField label="Nombre" variant="outlined" fullWidth className={classes.gridmb} value="John" />
-                        <TextField label="Apellidos" variant="outlined" fullWidth className={classes.gridmb} value="Peralta" />
-                        <TextField label="Correo Electronico" variant="outlined" fullWidth className={classes.gridmb} value="john@gmail.com" />
+                        <TextField 
+                        label="Nombre" 
+                        variant="outlined" 
+                        fullWidth 
+                        className={classes.gridmb} 
+                        name = "nombre"
+                        value={usuario.nombre}
+                        onChange={handleChange} 
+                        />
+                        <TextField 
+                        label="Apellidos"
+                         variant="outlined" 
+                         fullWidth 
+                         className={classes.gridmb} 
+                         name = "apellido"
+                         value={usuario.apellido}
+                         onChange={handleChange}
+                         />
+                        <TextField 
+                        label="Correo Electronico" 
+                        variant="outlined" 
+                        fullWidth 
+                        className={classes.gridmb}
+                        name = "email"
+                        value={usuario.email}
+                        onChange={handleChange}
+                        />
                         <Divider className={classes.divider} />
-                        <TextField label="Contraseña" variant="outlined" fullWidth className={classes.gridmb} />
+                        <TextField 
+                        label="Contraseña" 
+                        variant="outlined" 
+                        fullWidth 
+                        className={classes.gridmb} 
+                        name = "password"
+                        />
                         <TextField label="Confirmar Contraseña" variant="outlined" fullWidth className={classes.gridmb} />
                         <Button variant="contained" color="primary" >
                             Actualizar
