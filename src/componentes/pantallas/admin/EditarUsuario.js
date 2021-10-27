@@ -1,6 +1,6 @@
 import { Button, Checkbox, Container, FormControl, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { actualizarUsuario, agregarRole, getUsuarioById } from '../../../actions/UsuarioAction';
+import { agregarRole, getUsuarioById } from '../../../actions/UsuarioAction';
 import UseStyles from '../../../theme/UseStyles';
 import { withRouter } from 'react-router-dom';
 import {UseStateValue} from '../../../contexto/store';
@@ -34,29 +34,29 @@ const EditarUsuario = (props) => {
         getUsuarioAsync();
     }, [])
 
-    const actualizarRoleUsuario = async (e) =>{
+    const actualizarRoleUsuario = async (e) => {
         e.preventDefault();
         const id = props.match.params.id;
         const role = {
-            nombre: "ADMIN",
+            nombre:  "ADMIN",
             status: admin
         };
 
-        const response = await agregarRole(id, role, dispatch);
-        if(response.status === 200)
-        {
-            props.history.push("admin/usuarios");
+       const response = await agregarRole(id, role, dispatch);
 
-        }else
-        {
-            dispatch({
-                type:"OPEN_SNACKBAR",
-                openMensaje: {
-                    open: true,
-                    mensaje: "no es posible agregar este rol admin"
-                }
-            })
-        }
+       if (response.status === 200){
+           window.localStorage.setItem("token", response.data.token);
+            props.history.push("/admin/usuarios");
+       }
+       else{
+           dispatch({
+               type: "OPEN_SNACKBAR",
+               openMensaje: {
+                   open: true,
+                   mensaje: "No es posible agregar este role admin"
+               }
+           })
+       }
     }
 
     const classes = UseStyles();
@@ -93,7 +93,7 @@ const EditarUsuario = (props) => {
                         <Button 
                         variant="contained" 
                         color="orimary" 
-                        onClick={actualizarUsuario}
+                        onClick={actualizarRoleUsuario}
                         >
                             Actualizar
                         </Button>

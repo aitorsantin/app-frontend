@@ -19,15 +19,15 @@ export const getUsuarioById = (id) => {
 }
 
 export const agregarRole = (id, role, dispatch) => {
-    return new Promise((resolve, eject) =>{
-        HttpCliente.get(`api/usuario/role/${id}`, role)
+    return new Promise((resolve, eject) => {
+        HttpCliente.put(`/api/usuario/role/${id}`, role)
         .then(response => {
             resolve(response);
         })
-        .catch( error => {
-            resolve(error.response);
+        .catch(error => {
+            resolve(error.response)
         });
-    });
+    })
 }
 
 export const getUsuarios = (request) => {
@@ -60,7 +60,7 @@ export const actualizarUsuario = async (id, usuario, dispatch) => {
         .catch( error => {
             resolve(error.response);
         })
-    });
+    })
 }
 
 export const registrarUsuario = (usuario, dispatch) => {

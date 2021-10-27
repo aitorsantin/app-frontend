@@ -28,13 +28,15 @@ const Usuarios = (props) => {
         }));
     }
 
-    useEffect(() => {
+    useEffect(  () => {
+
         const getListaUsuarios = async () => {
             const response = await getUsuarios(requestUsuarios);
             setPaginadorUsuarios(response.data);
         }
+        
         getListaUsuarios();
-    }, [requestUsuarios])
+    }, [requestUsuarios] )
 
     const classes = UseStyles();
 
@@ -68,26 +70,27 @@ const Usuarios = (props) => {
                        </TableRow>
                    </TableHead>
                    <TableBody>
-                       {
-                           paginadorUsuarios.data.map((usuario) => (
-                               <TableRow key={usuario.id}>
-                                   <TableCell>{usuario.id}</TableCell>
-                                   <TableCell>{usuario.nombre + '' + usuario.apellido}</TableCell>
-                                   <TableCell>{usuario.email}</TableCell>
-                                   <TableCell>{usuario.username}</TableCell>
-                                   <TableCell>
-                                       <Button
-                                       variant="contained"
-                                        color="primary"
-                                        onClick={() => editaUsuario(usuario.id)}
-                                       >
-                                           <Icon>edit</Icon>
-                                       </Button>
-                                   </TableCell>
-                               </TableRow>
-                           ))
-                       }
-                   </TableBody>
+                            {
+                                paginadorUsuarios.data.map(  (usuario) => (
+                                    <TableRow key={usuario.id}>
+                                        <TableCell>{usuario.id}</TableCell>
+                                        <TableCell>{usuario.nombre + ' ' + usuario.apellido}</TableCell>
+                                        <TableCell>{usuario.email}</TableCell>
+                                        <TableCell>{usuario.username}</TableCell>
+                                        <TableCell>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={ () => editaUsuario(usuario.id)}
+                                                >
+                                                    <Icon>edit</Icon>
+                                                </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                         
+                    </TableBody>
                </Table>
            </TableContainer>
            <Pagination count={paginadorUsuarios.pageCount} page={paginadorUsuarios.pageIndex} onChange={handleChange} />
