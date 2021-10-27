@@ -11,7 +11,7 @@ import carritoCompras from './componentes/pantallas/CarritoCompras';
 import ProcesoCompra from './componentes/pantallas/ProcesoCompra';
 import OrdenCompra from './componentes/pantallas/OrdenCompra';
 import Perfil from './componentes/seguridad/Perfil';
-import Usuarios from './componentes/pantallas/admin/Usuario';
+import Usuarios from './componentes/pantallas/admin/Usuarios';
 import EditarUsuario from './componentes/pantallas/admin/EditarUsuario';
 import ListaProductos from './componentes/pantallas/admin/ListaProductos';
 import AgregarProducto from './componentes/pantallas/admin/AgregarProducto';
