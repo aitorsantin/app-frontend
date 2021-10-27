@@ -7,6 +7,8 @@ import useStyles from '../../../theme/UseStyles';
 
 const MenuCliente = (props) => {
 
+    const imagenDefault = "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg";
+
     const [{sesionUsuario}, dispatch] = UseStateValue();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -47,7 +49,11 @@ const MenuCliente = (props) => {
                         <Avatar 
                         alt="mi imagen"
                         className={classes.avatarPerfilAppBar}
-                        src="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
+                        src = {
+                            sesionUsuario
+                            ? (sesionUsuario.usuario.imagen ? sesionUsuario.usuario.imagen : imagenDefault )
+                            : imagenDefault
+                        }
                         />
                         {sesionUsuario
                         ? (sesionUsuario.autenticado ? sesionUsuario.usuario.nombre + ' ' + sesionUsuario.usuario.apellido : "Inicie Sesion")  

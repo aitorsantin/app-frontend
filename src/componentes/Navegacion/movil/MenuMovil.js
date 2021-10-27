@@ -6,6 +6,9 @@ import { UseStateValue } from '../../../contexto/store';
 
 const MenuMovil = (props) => {
     
+    const imagenDefault = "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
+
+
     const [{sesionUsuario}, dispatch] = UseStateValue();
     const classes = UseStyles();
     const [openCliente, setOpenCliente] = useState(false);
@@ -37,7 +40,12 @@ const MenuMovil = (props) => {
                     <Avatar 
                     alt="Mi imagen"
                     className={classes.avatarPerfilAppBar}
-                    src="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg"
+                    ser = {
+                        sesionUsuario 
+                        ?
+                        (sesionUsuario.usuario.imagen ? sesionUsuario.usuario.imagen : imagenDefault)
+                        :imagenDefault
+                    }
                     />
                     <ListItemText>
                     {sesionUsuario

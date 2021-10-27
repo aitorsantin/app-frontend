@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react';
 import UseStyles from '../../theme/UseStyles';
 import ImageUploader from 'react-images-upload';
 import {UseStateValue} from "../../contexto/store";
+import {v4 as uuidv4} from "uuid";
+import { actualizarUsuario } from '../../actions/UsuarioAction';
+import { withRouter } from 'react-router-dom';
 
 const Perfil = (props) => {
+
+    const imagenDefault = "https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg";
 
     const [{sesionUsuario}, dispatch] = UseStateValue();
 
@@ -34,6 +39,47 @@ const Perfil = (props) => {
         }
     }, [sesionUsuario])
 
+    const subirImagen = (imagenes) => {
+        let foto = imagenes[0];
+        let fotoUrl = "";
+        try{
+            fotoUrl = URL.createObjectURL(foto);
+        }
+        catch(e)
+        {
+            console.log(e);
+        }
+        setUsuario((prev) =>({
+            ...prev,
+            file: foto,
+            imagenTemporal: fotoUrl
+        }));
+    }
+
+    const guardarUsuario = (e) =>{
+        e.preventDefault();
+        actualizarUsuario(sesionUsuario.usuario.id, usuario, dispatch)
+        .then(response => {
+            if(response.status === 200)
+            {
+                window.localStorage.setItem("token", response.data.token);
+                props.history.push('/');
+            }
+            else
+            {
+                dispatch({
+                    type:"OPEN_SNACKBAR",
+                    openensaje: {
+                        open: true,
+                        mensaje: "Errores actualizando el prefil de usuario"
+                    }
+                });
+            }
+        })
+    }
+
+    const keyImage = uuidv4();
+
     const classes = UseStyles();
     const verDetalles = () =>
     {
@@ -49,6 +95,8 @@ const Perfil = (props) => {
                     </Typography>
                     <form onSubmit={(e) => e.preventDefault()} className={classes.form} >
                     <ImageUploader
+                        key={keyImage}
+                        onChange={subirImagen}
                         withIcon={false}
                         buttonStyles={{borderRadius: "50%", padding: 10, margin: 0,
                         position: "absolute", bottom: 15, left: 15}}
@@ -56,7 +104,10 @@ const Perfil = (props) => {
                         buttonText={<Icon>add_a_photo</Icon>}
                         label={
                         <Avatar alt="Mi Perfil" className={classes.avatarPefil}
-                        image="https://www.elmotorista.es/image?i=504415989/zz-tm190202s.jpg" />
+                        src ={
+                            usuario.imagenTemporal ? usuario.imagenTemporal : (usuario.imagen ? usuario.imagen : imagenDefault)
+                        }
+                        />
                         }
                         imgExtension={['.jpg', '.gif', '.png', '.gif']}
                         maxFileSize={5242880}
@@ -97,7 +148,7 @@ const Perfil = (props) => {
                         name = "password"
                         />
                         <TextField label="Confirmar Contraseña" variant="outlined" fullWidth className={classes.gridmb} />
-                        <Button variant="contained" color="primary" >
+                        <Button variant="contained" color="primary" onClick={guardarUsuario} >
                             Actualizar
                         </Button>
                     </form>
@@ -168,4 +219,4 @@ const Perfil = (props) => {
     );
 };
 
-export default Perfil;
+export default withRouter(Perfil);
