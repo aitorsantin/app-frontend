@@ -8,7 +8,7 @@ const Usuarios = (props) => {
 
     const [requestUsuarios, setRequestUsuarios] = useState({
         pageIndex: 1,
-        pageSize: 20,
+        pageSize: 3,
         search: ''
     });
 
@@ -81,7 +81,7 @@ const Usuarios = (props) => {
                    </TableBody>
                </Table>
            </TableContainer>
-           <Paginationtion count={paginadorUsuarios.pageCount} page={paginadorUsuarios.pageIndex} onChange={handleChange} />
+           <Pagination count={paginadorUsuarios.pageCount} page={paginadorUsuarios.pageIndex} onChange={handleChange} />
        </Container>
     );
 };

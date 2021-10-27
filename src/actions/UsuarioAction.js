@@ -6,15 +6,16 @@ const instancia = axios.create();
 instancia.CancelToken = axios.CancelToken;
 instancia.isCancel = axios.isCancel;    
 
-export const getUsuarios = (request) =>{
-    return new Promise(`api/usuario/pagination?pageIndex=${request.pageIndex}&pageSize=${request.pageSize}&search=${request.search}`)
-    .then(response =>{
-        resolve(response);
-    })
-    .catch( error => {
-        resolve(error.response);
-    })
-    
+export const getUsuarios = (request) => {
+    return new Promise( (resolve, eject) => {
+        HttpCliente.get(`/api/usuario/pagination?pageIndex=${request.pageIndex}&pageSize=${request.pageSize}&search=${request.search}`)
+        .then(response => {
+            resolve(response);
+        })
+        .catch( error => {
+            resolve(error.response);
+        });
+    });
 }
 
 export const actualizarUsuario = async (id, usuario, dispatch) => {
