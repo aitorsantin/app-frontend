@@ -3,6 +3,7 @@ import { Pagination } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react';
 import { getUsuarios } from '../../../actions/UsuarioAction';
 import UseStyles from '../../../theme/UseStyles';
+import { withRouter } from 'react-router-dom';
 
 const Usuarios = (props) => {
 
@@ -37,9 +38,8 @@ const Usuarios = (props) => {
 
     const classes = UseStyles();
 
-    const EditaUsuario = () =>
+    const editaUsuario = (id) =>
     {
-        const id="B4951AC1-D83E-46DA-983B-0C32A25E1CB7";
         props.history.push("/admin/usuario/" + id); 
     }
 
@@ -75,6 +75,15 @@ const Usuarios = (props) => {
                                    <TableCell>{usuario.nombre + '' + usuario.apellido}</TableCell>
                                    <TableCell>{usuario.email}</TableCell>
                                    <TableCell>{usuario.username}</TableCell>
+                                   <TableCell>
+                                       <Button
+                                       variant="contained"
+                                        color="primary"
+                                        onClick={() => editaUsuario(usuario.id)}
+                                       >
+                                           <Icon>edit</Icon>
+                                       </Button>
+                                   </TableCell>
                                </TableRow>
                            ))
                        }
@@ -86,4 +95,4 @@ const Usuarios = (props) => {
     );
 };
 
-export default Usuarios;
+export default withRouter(Usuarios);
