@@ -4,7 +4,31 @@ import {uploadImage} from '../firebase';
 
 const instancia = axios.create();
 instancia.CancelToken = axios.CancelToken;
-instancia.isCancel = axios.isCancel;    
+instancia.isCancel = axios.isCancel;
+
+export const getUsuarioById = (id) => {
+    return new Promise((resolve, eject) =>{
+        HttpCliente.get(`api/usuario/account/${id}`)
+        .then(response => {
+            resolve(response);
+        })
+        .catch( error => {
+            resolve(error.response);
+        });
+    });
+}
+
+export const agregarRole = (id, role, dispatch) => {
+    return new Promise((resolve, eject) =>{
+        HttpCliente.get(`api/usuario/role/${id}`, role)
+        .then(response => {
+            resolve(response);
+        })
+        .catch( error => {
+            resolve(error.response);
+        });
+    });
+}
 
 export const getUsuarios = (request) => {
     return new Promise( (resolve, eject) => {

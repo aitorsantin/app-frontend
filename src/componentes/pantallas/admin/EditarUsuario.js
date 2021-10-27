@@ -1,8 +1,64 @@
 import { Button, Checkbox, Container, FormControl, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { actualizarUsuario, agregarRole, getUsuarioById } from '../../../actions/UsuarioAction';
 import UseStyles from '../../../theme/UseStyles';
+import { withRouter } from 'react-router-dom';
+import {UseStateValue} from '../../../contexto/store';
 
-const EditarUsuario = () => {
+const EditarUsuario = (props) => {
+
+    const [{sesionUsuaario}, dispatch] = UseStateValue();
+
+    const [usuario, setUsuario] = useState({
+        nombre: '',
+        apellido: '',
+        email: ''
+    });
+
+    const [admin, setAdmin] = useState(false);
+
+    const handleChange = (e) => {
+        setAdmin(e.target.checked);
+    }
+
+    //useEffect solo se va ejecutar una vez
+    useEffect(() => {
+        //obtenemos el id de la url
+        const id = props.match.params.id;
+        const getUsuarioAsync = async() => {
+            //obtenemos el usuario
+            const response = await getUsuarioById(id);
+            setAdmin(response.data.admin);
+            setUsuario(response.data);
+        }
+        getUsuarioAsync();
+    }, [])
+
+    const actualizarRoleUsuario = async (e) =>{
+        e.preventDefault();
+        const id = props.match.params.id;
+        const role = {
+            nombre: "ADMIN",
+            status: admin
+        };
+
+        const response = await agregarRole(id, role, dispatch);
+        if(response.status === 200)
+        {
+            props.history.push("admin/usuarios");
+
+        }else
+        {
+            dispatch({
+                type:"OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: "no es posible agregar este rol admin"
+                }
+            })
+        }
+    }
+
     const classes = UseStyles();
     return (
         <Container className={classes.containermt} >
@@ -12,12 +68,33 @@ const EditarUsuario = () => {
                         Editar Usuario
                     </Typography>
                     <form onSubmit={(e) => e.preventDefault()} className={classes.form} >
-                        <TextField label="Nombre" variant="filled" value="Aitor Santin" fullWidth disabled className={classes.gridmb} />
-                        <TextField label="Correo" variant="filled" value="aitor@gmail.com" fullWidth disabled />
+                        <TextField 
+                        label="Nombre" 
+                        variant="filled" 
+                        value={usuario.nombre + ''+ usuario.apellido} 
+                        fullWidth
+                        disabled
+                         className={classes.gridmb}
+                          />
+                        <TextField 
+                        label="Correo" 
+                        variant="filled" 
+                        value={usuario.email} 
+                        fullWidth disabled 
+                        />
                         <FormControl className={classes.checkbox} >
-                            <FormControlLabel control={<Checkbox color="primary" />} label="Es Administrador" />
+                            <FormControlLabel 
+                            control={<Checkbox color="primary" />} 
+                            label="Es Administrador" 
+                            checked={admin} 
+                            onChange={handleChange}
+                            />
                         </FormControl>
-                        <Button variant="contained" color="orimary" >
+                        <Button 
+                        variant="contained" 
+                        color="orimary" 
+                        onClick={actualizarUsuario}
+                        >
                             Actualizar
                         </Button>
                     </form>
@@ -27,4 +104,4 @@ const EditarUsuario = () => {
     );
 };
 
-export default EditarUsuario;
+export default withRouter(EditarUsuario);
