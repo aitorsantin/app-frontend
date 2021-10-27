@@ -6,6 +6,17 @@ const instancia = axios.create();
 instancia.CancelToken = axios.CancelToken;
 instancia.isCancel = axios.isCancel;    
 
+export const getUsuarios = (request) =>{
+    return new Promise(`api/usuario/pagination?pageIndex=${request.pageIndex}&pageSize=${request.pageSize}&search=${request.search}`)
+    .then(response =>{
+        resolve(response);
+    })
+    .catch( error => {
+        resolve(error.response);
+    })
+    
+}
+
 export const actualizarUsuario = async (id, usuario, dispatch) => {
     if(usuario.file){
         const urlImage = await uploadImage(usuario.file);
@@ -24,7 +35,7 @@ export const actualizarUsuario = async (id, usuario, dispatch) => {
         .catch( error => {
             resolve(error.response);
         })
-    })
+    });
 }
 
 export const registrarUsuario = (usuario, dispatch) => {

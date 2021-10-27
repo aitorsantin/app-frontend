@@ -1,8 +1,40 @@
 import { Container, Table, TableContainer, TableHead, TableRow, Typography, TableCell, TableBody, Icon, Button } from '@material-ui/core';
-import React from 'react';
+import { Pagination } from '@material-ui/lab';
+import React, { useEffect, useState } from 'react';
+import { getUsuarios } from '../../../actions/UsuarioAction';
 import UseStyles from '../../../theme/UseStyles';
 
 const Usuarios = (props) => {
+
+    const [requestUsuarios, setRequestUsuarios] = useState({
+        pageIndex: 1,
+        pageSize: 20,
+        search: ''
+    });
+
+    const [paginadorUsuarios, setPaginadorUsuarios] = useState({
+        count: 0,
+        pageIndex: 0,
+        pageSize: 0,
+        pageCount: 0,
+        data: []
+    });
+
+    const handleChange = (event, value) => {
+        setRequestUsuarios((anterior)=>({
+            ...anterior,
+            pageIndex: value
+        }));
+    }
+
+    useEffect(() => {
+        const getListaUsuarios = async () => {
+            const response = await getUsuarios(requestUsuarios);
+            setPaginadorUsuarios(response.data);
+        }
+        getListaUsuarios();
+    }, [requestUsuarios])
+
     const classes = UseStyles();
 
     const EditaUsuario = () =>
@@ -30,71 +62,26 @@ const Usuarios = (props) => {
                                Email
                            </TableCell>
                            <TableCell>
-                               Admin
+                               UserName
                            </TableCell>
                            <TableCell></TableCell>
                        </TableRow>
                    </TableHead>
                    <TableBody>
-                        <TableRow>
-                           <TableCell>
-                                B4951AC1-D83E-46DA-983B-0C32A25E1CB7
-                           </TableCell>
-                           <TableCell>
-                               John Peralta
-                           </TableCell>
-                           <TableCell>
-                               john@gmail.com
-                           </TableCell>
-                           <TableCell>
-                               <Icon className={classes.iconDelivered} >
-                                   check
-                               </Icon>
-                           </TableCell>
-                           <TableCell>
-                               <Button variant="contained" color="primary" onClick={EditaUsuario} >
-                                   <Icon>
-                                       edit
-                                   </Icon>
-                               </Button>
-                               <Button variant="contained" color="secondary" >
-                                   <Icon>
-                                       delete
-                                   </Icon>
-                               </Button>
-                           </TableCell>
-                       </TableRow>
-                       <TableRow>
-                           <TableCell>
-                                4980DB5D-C1D0-4A44-A739-6CD06F4DCF8D
-                           </TableCell>
-                           <TableCell>
-                               Aitor Santin
-                           </TableCell>
-                           <TableCell>
-                               aitor@gmail.com
-                           </TableCell>
-                           <TableCell>
-                               <Icon className={classes.iconNotDelivered} >
-                                   clear
-                               </Icon>
-                           </TableCell>
-                           <TableCell>
-                               <Button variant="contained" color="primary" onClick={EditaUsuario} >
-                                   <Icon>
-                                       edit
-                                   </Icon>
-                               </Button>
-                               <Button variant="contained" color="secondary" >
-                                   <Icon>
-                                       delete
-                                   </Icon>
-                               </Button>
-                           </TableCell>
-                       </TableRow>
+                       {
+                           paginadorUsuarios.data.map((usuario) => (
+                               <TableRow key={usuario.id}>
+                                   <TableCell>{usuario.id}</TableCell>
+                                   <TableCell>{usuario.nombre + '' + usuario.apellido}</TableCell>
+                                   <TableCell>{usuario.email}</TableCell>
+                                   <TableCell>{usuario.username}</TableCell>
+                               </TableRow>
+                           ))
+                       }
                    </TableBody>
                </Table>
            </TableContainer>
+           <Paginationtion count={paginadorUsuarios.pageCount} page={paginadorUsuarios.pageIndex} onChange={handleChange} />
        </Container>
     );
 };
