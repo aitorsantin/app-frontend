@@ -11,10 +11,9 @@ export const actualizarUsuario = async (id, usuario, dispatch) => {
         const urlImage = await uploadImage(usuario.file);
         usuario.imagen = urlImage;
     }
-
-    return new Promise((resolve, eject) =>{
-        HttpCliente(`/api/usuario/actualizar/${id}`, usuario)
-        .then(response => {
+    return new Promise( (resolve, eject) => {
+        HttpCliente.put(`/api/usuario/actualizar/${id}`, usuario)
+        .then( response => {
             dispatch({
                 type: "ACTUALIZAR_USUARIO",
                 nuevoUsuario: response.data,
@@ -22,7 +21,7 @@ export const actualizarUsuario = async (id, usuario, dispatch) => {
             });
             resolve(response);
         })
-        .catch((error) => {
+        .catch( error => {
             resolve(error.response);
         })
     })
